@@ -26,6 +26,17 @@ class Base(object):
         except:    # SSL Exception or may be Timeout Exception
             return None
 
+    def basic_request(self, url):   # For image download
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                return response
+            else:
+                return None
+        except:    # SSL Exception or may be Timeout Exception
+            return None
+
+
     def beautify(self, url):
         response_data = self.simple_request(url)        # Parsing response data to HTML
         if response_data:

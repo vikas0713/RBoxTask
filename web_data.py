@@ -3,6 +3,7 @@ This script stores all javascript, stylesheet and other assests related to the w
 Created By : Vikas Verma
 """
 import random
+import shutil
 
 from base import Base
 
@@ -40,6 +41,7 @@ class WebData(Base):
                             css_data = self.simple_request(style_link)  # Fetch CSS from resource
                             with open(css_directory+style_name,"w") as fp:
                                 fp.write(css_data)
+                            fp.close()
                     else:
                         pass
                 else:
@@ -66,6 +68,7 @@ class WebData(Base):
                         js_data = self.simple_request(js_link)  # Fetch JS from resource
                         with open(js_directory + js_name, "w") as fp:
                             fp.write(js_data)
+                        fp.close()
                 else:
                     pass
             except:
@@ -75,15 +78,19 @@ class WebData(Base):
         img_directory = self.directory + "img/"
         self.create_folder(img_directory)
         for img in self.parsed_html.findAll("img"):
-            try:
+            if True:
                 src = img["src"]
-                img_data = self.simple_request(src)
+                if src.startswith("/"):
+                    src = self.base_url+src
+                img_data = self.basic_request(src)
                 if img_data:
                     with open(img_directory+self.generate_random_name(), "wb") as fp:
-                        fp.write(img_data)
+                        for chunk in img_data.iter_content(1024):
+                            fp.write(chunk)
+                    fp.close()
                 else:
                     pass
-            except:
+            else:
                 pass
 
     def save_page(self, i):
@@ -93,14 +100,15 @@ class WebData(Base):
             with open(self.directory+"page"+str(i)+".html", "w") as fp:
                 fp.write(u''.join(self.raw_html).encode('utf-8').strip())
             fp.close()
-            self.stylesheets()
-            self.javascript()
+            # self.stylesheets()
+            # self.javascript()
+            self.save_images()
 
     def generate_random_name(self):
         name = ""
         choices = "ehienaijfisdfnkldfdnfsndfndsfkndnbvzxcasdfghjkl08447489949f"
         while len(name)<5:
-            name = random.choice(choices)
+            name += random.choice(choices)
         return name+".jpg"
 
 
