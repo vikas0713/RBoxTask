@@ -7,11 +7,28 @@ import sys
 from RBCrawler import CrawlTheWeb
 
 if __name__ == "__main__":
-    if sys.argv[1:]:
-        for cli_urls in sys.argv[1:]:
-            crawl_obj = CrawlTheWeb(cli_urls)
-            if crawl_obj.valid_url:
-                print("Crawling the Web.......")
+    if sys.argv[1]:
+        print(sys.argv[1])
+        crawl_obj = CrawlTheWeb(sys.argv[1])
     else:
-        crawl_obj = CrawlTheWeb("http://www.apache.org/")
+        options = {
+            "1": "http://www.apache.org",
+            "2": "http://www.python.org",
+            "3": "http://getbootstrap.com"
+        }
+        print("\033[95m Enter URL to crawl or choose from options given below for test: \033[0m")
+        print("\033[1m 1. http://www.apache.org  \033[0m")
+        print("\033[1m 2. http://www.python.org \033[0m")
+        print("\033[1m 3. http://getbootstrap.com \033[0m")
+        user_input = raw_input()
+        if user_input.isdigit():
+            try:
+                url = options[user_input]
+                print("\033[92m Fetching Content from %s \033[0m" %url)
+                crawl_obj = CrawlTheWeb(url)
+            except:
+                print("Not a valid options!!")
+        else:
+            print("\033[92m Fetching Content from %s \033[0m" %user_input)
+            crawl_obj = CrawlTheWeb(user_input)
     # print(sys.argv[1:])

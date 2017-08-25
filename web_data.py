@@ -82,14 +82,16 @@ class WebData(Base):
                 src = img["src"]
                 if src.startswith("/"):
                     src = self.base_url+src
-                img_data = self.basic_request(src)
-                if img_data:
-                    with open(img_directory+self.generate_random_name(), "wb") as fp:
-                        for chunk in img_data.iter_content(1024):
-                            fp.write(chunk)
-                    fp.close()
-                else:
-                    pass
+                    image_name = src.split("/")[-1]+".png"
+                    img_data = self.basic_request(src)
+                    if not self.is_exists(self.directory+image_name):
+                        if img_data:
+                            with open(img_directory+image_name, "wb") as fp:
+                                for chunk in img_data.iter_content(1024):
+                                    fp.write(chunk)
+                            fp.close()
+                        else:
+                            pass
             else:
                 pass
 
@@ -100,8 +102,8 @@ class WebData(Base):
             with open(self.directory+"page"+str(i)+".html", "w") as fp:
                 fp.write(u''.join(self.raw_html).encode('utf-8').strip())
             fp.close()
-            # self.stylesheets()
-            # self.javascript()
+            self.stylesheets()
+            self.javascript()
             self.save_images()
 
     def generate_random_name(self):

@@ -25,10 +25,7 @@ class CrawlTheWeb(Base):
         self.root_url = url
         self.valid_url, self.response, self.title, self.directory = None, None, None, None
         self.all_links, self.primary_links = [], []
-        self.directory = None
-        self.parsed_html = None
-        self.folder_created = None
-        self.page = None
+        self.parsed_html ,self.folder_created, self.page = None, None, None
         self.validate_url()
 
     def validate_url(self):
@@ -53,8 +50,10 @@ class CrawlTheWeb(Base):
             if validators.url(self.root_url):
                 if self.root_url.endswith("/"):
                     self.valid_url = self.root_url[:-1]
+                    self.title = self.root_url.replace("http://", "").replace("https://", "").replace("/", "")
                 else:
                     self.valid_url = self.root_url
+                    self.title = self.root_url.replace("http://", "").replace("https://", "").replace("/", "")
                 self.request(self.valid_url)  # Call server with valid_url
 
             else:
@@ -119,7 +118,7 @@ class CrawlTheWeb(Base):
             if raw_html:
                 WebData(raw_html, self.directory, self.valid_url)
             else:
-                print("Fetching of HTMl Document failed!!")
+                pass
 
 
 
