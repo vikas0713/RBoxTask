@@ -7,14 +7,14 @@ import sys
 from RBCrawler import CrawlTheWeb
 
 if __name__ == "__main__":
-    if sys.argv[1]:
-        print(sys.argv[1])
-        crawl_obj = CrawlTheWeb(sys.argv[1])
+    if sys.argv[1:]:
+        CrawlTheWeb(sys.argv[1])
     else:
+        # Default options
         options = {
             "1": "http://www.apache.org",
             "2": "http://www.python.org",
-            "3": "http://getbootstrap.com"
+            "3": "http://getbootstrap.com \n"
         }
         print("\033[95m Enter URL to crawl or choose from options given below for test: \033[0m")
         print("\033[1m 1. http://www.apache.org  \033[0m")
@@ -30,5 +30,4 @@ if __name__ == "__main__":
                 print("Not a valid options!!")
         else:
             print("\033[92m Fetching Content from %s \033[0m" %user_input)
-            crawl_obj = CrawlTheWeb(user_input)
-    # print(sys.argv[1:])
+            CrawlTheWeb(user_input)

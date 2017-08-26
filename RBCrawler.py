@@ -30,7 +30,7 @@ class CrawlTheWeb(Base):
 
     def validate_url(self):
         if "https://" in self.root_url or "http://" in self.root_url:
-            # Check if http/https is prepended in the URL
+            # Check if http/https is already prepended in the URL
             if validators.url(self.root_url):
                 # Check if the url is valid or not
                 if self.root_url.endswith("/"):
@@ -70,16 +70,17 @@ class CrawlTheWeb(Base):
         if self.primary_links:
             with open(self.directory + "sitemap.json", "w") as fp:
                 fp.write(json.dumps({"site_uls": self.primary_links}, indent=4))
+
             # CALL TO SAVE PAGES TO THE DIRECTORY
             self.web_data()
         else:
             print("Resource not found!!!!")
 
     def request(self, url):
-        try:
+        if True:
             self.response = requests.get(self.valid_url)
             status_code = self.response.status_code
-        except:
+        else:
             status_code = None
 
         if status_code == 200:
