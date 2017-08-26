@@ -19,9 +19,10 @@ class WebData(Base):
         self.parsed_html = self.parse_raw_html(self.raw_html)
         self.base_url = base_url
         self.all_javascripts = []
-        self.save_page(1)   # Random argument passed for use of unique name
+        self.save_page(1)   # Random argument passed for use of unique name of HTMl web page
 
     def stylesheets(self):
+        # Fetches CSS from webpage
         css_directory = self.directory+"css/"
         self.create_folder(css_directory)  # Creating Directory CSS
         for style in self.parsed_html.findAll("link"):
@@ -50,6 +51,7 @@ class WebData(Base):
                 pass
 
     def javascript(self):
+        # Fetches JS files from webpage
         js_directory = self.directory + "js/"
         self.create_folder(js_directory)  # Creating Directory CSS
         for js_script in self.parsed_html.findAll("script"):
@@ -75,6 +77,7 @@ class WebData(Base):
                 pass
 
     def save_images(self):
+        # Fetches Images from the source
         img_directory = self.directory + "img/"
         self.create_folder(img_directory)
         for img in self.parsed_html.findAll("img"):
@@ -96,6 +99,7 @@ class WebData(Base):
                 pass
 
     def save_page(self, i):
+        # Fetches HTML webpage from source
         if self.is_exists(self.directory+"page"+str(i)+".html"):
             self.save_page(i+1)
         else:
@@ -105,14 +109,6 @@ class WebData(Base):
             self.stylesheets()
             self.javascript()
             self.save_images()
-
-    def generate_random_name(self):
-        name = ""
-        choices = "ehienaijfisdfnkldfdnfsndfndsfkndnbvzxcasdfghjkl08447489949f"
-        while len(name)<5:
-            name += random.choice(choices)
-        return name+".jpg"
-
 
 
 

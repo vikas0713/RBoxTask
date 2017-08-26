@@ -21,7 +21,7 @@ if __name__ == "__main__":
         print("\033[1m 2. http://www.python.org \033[0m")
         print("\033[1m 3. http://getbootstrap.com \033[0m")
         user_input = raw_input("\n")
-        if user_input.isdigit():
+        if user_input.isdigit():  # Checking if the digit as option is provided
             try:
                 url = options[user_input]
                 print("\033[92m Fetching Content from %s \033[0m" %url)
