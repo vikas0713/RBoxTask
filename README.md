@@ -11,5 +11,7 @@ If you forgot to enter the URL from command line , Don't worry , after running t
  you will be asked to enter the root URL again or you can choose from the menu given on the screen.
 
 
+CrawlTheWeb class will crawl the links and after that it will create the folder into same directory of the respective
+domain and then fetches all the HTML, CSS, JS and Images from the sources  and save it into its respective directory.
 
 By: Vikas Verma
