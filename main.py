@@ -20,7 +20,7 @@ if __name__ == "__main__":
         print("\033[1m 1. http://www.apache.org  \033[0m")
         print("\033[1m 2. http://www.python.org \033[0m")
         print("\033[1m 3. http://getbootstrap.com \033[0m")
-        user_input = raw_input()
+        user_input = raw_input("\n")
         if user_input.isdigit():
             try:
                 url = options[user_input]
