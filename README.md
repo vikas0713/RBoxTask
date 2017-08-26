@@ -1,4 +1,4 @@
-This project consists of pytho scripts which is basically works as a crawler.
+This project consists of python scripts which is basically works as a crawler.
 
 Make sure that you have installed the requirements of the project that is included in the requirements.txt.
  1. pip install -r requirements.txt
