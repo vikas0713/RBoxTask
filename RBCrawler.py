@@ -110,7 +110,7 @@ class CrawlTheWeb(Base):
                             self.all_links.append(self.valid_url + link['href'].strip())
                     else:
                         pass
-            except AttributeError as e:
+            except :    # AttributeError or KeyError
                 pass
 
     def web_data(self):
