@@ -114,6 +114,7 @@ class CrawlTheWeb(Base):
                 pass
 
     def web_data(self):
+        # Fetch HTML, CSS, JS and Images from the sources
         for link in self.primary_links:
             raw_html = self.simple_request(link)
             if raw_html:
